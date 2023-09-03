@@ -400,9 +400,10 @@ async def main_async():
         await asyncio.gather(get_free_sort_author_list(session, novel_list), get_free_sort_regular_list(session, novel_list), get_free_sort_free_list(session, novel_list), get_free_sort_end_list(session, novel_list))
         await asyncio.gather(get_pl_sort_new_best_list(session, novel_list), get_pl_sort_latest_list(session, novel_list), get_pl_sort_end_list(session, novel_list))
 
-end_num = 1000
+end_num = 10000
 novel_list = []
-loop = asyncio.get_event_loop()
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
 loop.run_until_complete(main_async())
 loop.close()
 store_info(novel_list)
