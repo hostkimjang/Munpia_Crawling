@@ -412,7 +412,7 @@ async def main_async():
 
 
 start = time.time()
-end_num = 3
+end_num = 10000
 novel_list = []
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
