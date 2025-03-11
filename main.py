@@ -7,6 +7,8 @@ import json
 import random
 from info import set_novel_info
 from store import store_info
+import time
+import datetime
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
@@ -56,6 +58,7 @@ async def get_pl_sort_new_best_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -105,6 +108,7 @@ async def get_pl_sort_latest_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -153,6 +157,7 @@ async def get_pl_sort_end_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -193,6 +198,7 @@ async def get_free_sort_author_list(session, novel_list):
                             break  # 오류가 발생한 경우 현재 페이지를 스킵하고 다음 페이지로 이동
                         print(f"무료 작가 순회 {i}회")
                         page = await response.json()
+                        #pprint.pprint(page)
                         page = page['content']['list']
                         if not page:
                             print("최대 페이지 도달")
@@ -202,6 +208,7 @@ async def get_free_sort_author_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -250,6 +257,7 @@ async def get_free_sort_regular_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -299,6 +307,7 @@ async def get_free_sort_free_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -347,6 +356,7 @@ async def get_free_sort_end_list(session, novel_list):
                         else:
                             for i in page:
                                 novel_info = set_novel_info(platform="Munpia",
+                                                            id=i['nvSrl'],
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
@@ -400,10 +410,17 @@ async def main_async():
         await asyncio.gather(get_free_sort_author_list(session, novel_list), get_free_sort_regular_list(session, novel_list), get_free_sort_free_list(session, novel_list), get_free_sort_end_list(session, novel_list))
         await asyncio.gather(get_pl_sort_new_best_list(session, novel_list), get_pl_sort_latest_list(session, novel_list), get_pl_sort_end_list(session, novel_list))
 
-end_num = 10000
+
+start = time.time()
+end_num = 3
 novel_list = []
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 loop.run_until_complete(main_async())
 loop.close()
 store_info(novel_list)
+end = time.time()
+
+sec = (end - start)
+result = datetime.timedelta(seconds=sec)
+pprint.pprint(f"크롤러 동작 시간 : {result}")

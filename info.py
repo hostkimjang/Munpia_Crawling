@@ -1,6 +1,7 @@
 class NovelInfo:
-    def __init__(self, platform, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
+    def __init__(self, platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
         self.platform = platform
+        self.id = id
         self.title = title
         self.info = info
         self.author = author
@@ -19,6 +20,7 @@ class NovelInfo:
 
     def __str__(self):
         return f"platform: {self.platform}, " \
+               f"id: {self.id}, " \
                f"title: {self.title}, " \
                f"info: {self.info}, " \
                f"author: {self.author}, " \
@@ -39,6 +41,7 @@ class NovelInfo:
     def to_dict(self):
         return {
             "platform": self.platform,
+            "id": self.info,
             "title": self.title,
             "info": self.info,
             "author": self.author,
@@ -55,9 +58,10 @@ class NovelInfo:
             "sort_option": self.sort_option
         }
 
-def set_novel_info(platform, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
+def set_novel_info(platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
     print("-" * 100)
     print(f"platform: {platform}")
+    print(f"id: {id}")
     print(f"title: {title}")
     print(f"info: {info}")
     print(f"author: {author}")
@@ -73,4 +77,4 @@ def set_novel_info(platform, title, info, author, href, thumbnail, tag, the_numb
     print(f"updatedate: {updatedate}")
     print(f"sort_option: {sort_option}")
     print("-" * 100)
-    return NovelInfo(platform, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option)
+    return NovelInfo(platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option)
