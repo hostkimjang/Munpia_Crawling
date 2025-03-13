@@ -1,5 +1,5 @@
 class NovelInfo:
-    def __init__(self, platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
+    def __init__(self, platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, chapter, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
         self.platform = platform
         self.id = id
         self.title = title
@@ -9,6 +9,7 @@ class NovelInfo:
         self.thumbnail = thumbnail
         self.tag = tag
         self.the_number_of_serials = the_number_of_serials
+        self.chapter = chapter
         self.view = view
         self.newstatus = newstatus
         self.finishstatus = finishstatus
@@ -28,6 +29,7 @@ class NovelInfo:
                f"thumbnail: {self.thumbnail}, " \
                f"tag: {self.tag}, " \
                f"the_number_of_serials: {self.the_number_of_serials}, " \
+               f"chapter: {self.chapter}, " \
                f"view: {self.view}, " \
                f"newstatus: {self.newstatus}, " \
                f"finishstatus: {self.finishstatus}, " \
@@ -49,6 +51,7 @@ class NovelInfo:
             "thumbnail": self.thumbnail,
             "tag": self.tag,
             "the_number_of_serials": self.the_number_of_serials,
+            "chapter": self.chapter,
             "view": self.view,
             "newstatus": self.newstatus,
             "finishstatus": self.finishstatus,
@@ -58,7 +61,7 @@ class NovelInfo:
             "sort_option": self.sort_option
         }
 
-def set_novel_info(platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
+def set_novel_info(platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, chapter, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option):
     print("-" * 100)
     print(f"platform: {platform}")
     print(f"id: {id}")
@@ -69,6 +72,7 @@ def set_novel_info(platform, id, title, info, author, href, thumbnail, tag, the_
     print(f"thumbnail: {thumbnail}")
     print(f"tag: {tag}")
     print(f"the_number_of_serials: {the_number_of_serials}")
+    print(f"chapter: {chapter}")
     print(f"view: {view}")
     print(f"newstatus: {newstatus}")
     print(f"finishstatus: {finishstatus}")
@@ -77,4 +81,4 @@ def set_novel_info(platform, id, title, info, author, href, thumbnail, tag, the_
     print(f"updatedate: {updatedate}")
     print(f"sort_option: {sort_option}")
     print("-" * 100)
-    return NovelInfo(platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option)
+    return NovelInfo(platform, id, title, info, author, href, thumbnail, tag, the_number_of_serials, chapter, view, newstatus, finishstatus, agegrade, registdate, updatedate, sort_option)
