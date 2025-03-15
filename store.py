@@ -14,7 +14,7 @@ def store_info(info_list):
                 "href": info.href,
                 "thumbnail": info.thumbnail,
                 "tag": info.tag,
-                "the_number_of_serials": int(info.the_number_of_serials),
+                "the_number_of_serials": int(info.the_number_of_serials.replace(',', '')),
                 "view": info.view,
                 "newstatus": info.newstatus,
                 "finishstatus": info.finishstatus,
