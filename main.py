@@ -5,7 +5,6 @@ import aiohttp
 import requests
 import json
 import random
-
 from DB_processing import store_db
 from info import set_novel_info
 from store import store_info
@@ -422,7 +421,7 @@ async def main_async():
 
 if __name__ == '__main__':
     start = time.time()
-    end_num = 100
+    end_num = 100000
     novel_list = []
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
