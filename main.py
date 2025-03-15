@@ -5,6 +5,8 @@ import aiohttp
 import requests
 import json
 import random
+
+from DB_processing import store_db
 from info import set_novel_info
 from store import store_info
 import time
@@ -418,16 +420,18 @@ async def main_async():
         await asyncio.gather(get_pl_sort_new_best_list(session, novel_list), get_pl_sort_latest_list(session, novel_list), get_pl_sort_end_list(session, novel_list))
 
 
-start = time.time()
-end_num = 10000
-novel_list = []
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-loop.run_until_complete(main_async())
-loop.close()
-store_info(novel_list)
-end = time.time()
+if __name__ == '__main__':
+    start = time.time()
+    end_num = 100
+    novel_list = []
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(main_async())
+    loop.close()
+    store_info(novel_list)
+    end = time.time()
+    sec = (end - start)
+    result = datetime.timedelta(seconds=sec)
+    pprint.pprint(f"크롤러 동작 시간 : {result}")
+    store_db()
 
-sec = (end - start)
-result = datetime.timedelta(seconds=sec)
-pprint.pprint(f"크롤러 동작 시간 : {result}")
