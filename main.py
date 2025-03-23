@@ -1,9 +1,6 @@
 import asyncio
 import pprint
-import time
 import aiohttp
-import requests
-import json
 import random
 from DB_processing import store_db
 from info import set_novel_info
@@ -21,20 +18,27 @@ headers = {
 
 #---유료 소설 목로
 # 연재 신규베스트 "https://mm.munpia.com/pl/getList?page=1&rows=30&tab=plserial&subtab=new&selectbox="
+# 신규베스트 2   "https://mm.munpia.com/pl/getList?page=1&rows=30&tab=new&subtab=&selectbox=&selectbox2="
 # 최신 "https://mm.munpia.com/pl/getList?page=1&rows=30&tab=plserial&subtab=serial&selectbox="
+#최신2 "https://mm.munpia.com/pl/getList?page=1&rows=30&tab=serial&subtab=&selectbox=&selectbox2=new"
 # 완결 "https://mm.munpia.com/pl/getList?page=1&rows=30&tab=plserial&subtab=serial_end&selectbox=
+#완결2 "https://mm.munpia.com/pl/getList?page=1&rows=30&tab=serial_end&subtab=&selectbox=&selectbox2=fin"
+
 
 #---무료 소설 목록
 # 작가 "https://mm.munpia.com/free/getList?page=1&rows=30&tab=pro&subtab=&selectbox="
+# 전체 https://mm.munpia.com/free/getList?page=1&rows=30&tab=pro&subtab=&selectbox=&selectbox2=new&selectbox3=all
 # 일반 "https://mm.munpia.com/free/getList?page=1&rows=30&tab=regular&subtab=&selectbox="
+# 전체 "https://mm.munpia.com/free/getList?page=3&rows=30&tab=regular&subtab=&selectbox=&selectbox2=new&selectbox3=all"
 # 자유 "https://mm.munpia.com/free/getList?page=1&rows=30&tab=free&subtab=&selectbox="
+# 전체 "https://mm.munpia.com/free/getList?page=1&rows=30&tab=free&subtab=&selectbox=&selectbox2=new&selectbox3=all"
 # 완결 "https://mm.munpia.com/free/getList?page=1&rows=30&tab=finish&subtab=&selectbox="
 
 async def get_pl_sort_new_best_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/pl/getList?page={i}&rows=30&tab=plserial&subtab=new&selectbox"
+            url = f"https://mm.munpia.com/pl/getList?page={i}&rows=30&tab=new&subtab=&selectbox=&selectbox2="
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -63,7 +67,7 @@ async def get_pl_sort_new_best_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -80,12 +84,14 @@ async def get_pl_sort_new_best_list(session, novel_list):
             except aiohttp.ClientError as e:
                 print(f"{url}에서 데이터를 가져오는 중 오류 발생: {e}")
 
+        return end
+
 
 async def get_pl_sort_latest_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/pl/getList?page={i}&rows=30&tab=plserial&subtab=serial&selectbox="
+            url = f"https://mm.munpia.com/pl/getList?page={i}&rows=30&tab=serial&subtab=&selectbox=&selectbox2=new"
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -114,7 +120,7 @@ async def get_pl_sort_latest_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -135,7 +141,7 @@ async def get_pl_sort_end_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/pl/getList?page={i}&rows=30&tab=plserial&subtab=serial_end&selectbox="
+            url = f"https://mm.munpia.com/pl/getList?page={i}&rows=30&tab=serial_end&subtab=&selectbox=&selectbox2=fin"
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -164,7 +170,7 @@ async def get_pl_sort_end_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -186,7 +192,7 @@ async def get_free_sort_author_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=pro&subtab=&selectbox="
+            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=pro&subtab=&selectbox=&selectbox2=new&selectbox3=all"
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -216,7 +222,7 @@ async def get_free_sort_author_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -237,7 +243,7 @@ async def get_free_sort_regular_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=regular&subtab=&selectbox="
+            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=regular&subtab=&selectbox=&selectbox2=new&selectbox3=all"
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -266,7 +272,7 @@ async def get_free_sort_regular_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -287,7 +293,7 @@ async def get_free_sort_free_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=free&subtab=&selectbox="
+            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=free&subtab=&selectbox=&selectbox2=new&selectbox3=all"
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -317,7 +323,7 @@ async def get_free_sort_free_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -338,7 +344,7 @@ async def get_free_sort_end_list(session, novel_list):
     end = False
     if end == False:
         for i in range(1, end_num):
-            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=finish&subtab=&selectbox="
+            url = f"https://mm.munpia.com/free/getList?page={i}&rows=30&tab=finish&subtab=&selectbox=&selectbox2=new&selectbox3=all"
             try:
                 while True:  # 무한 루프를 통해 재시도
                     async with session.get(url, headers=headers) as response:
@@ -367,7 +373,7 @@ async def get_free_sort_end_list(session, novel_list):
                                                             title=i['title'],
                                                             info=i['story'],
                                                             author=i['author'],
-                                                            href=i['href'],
+                                                            href=f"https://novel.munpia.com/{i['nvSrl']}",
                                                             thumbnail=i['cover'],
                                                             tag=i['genreText'],
                                                             the_number_of_serials=i['sumEntry'],
@@ -414,10 +420,10 @@ for i in page:
 """
 
 async def main_async():
+    print("크롤러 동작 시작")
     async with aiohttp.ClientSession() as session:
         await asyncio.gather(get_free_sort_author_list(session, novel_list), get_free_sort_regular_list(session, novel_list), get_free_sort_free_list(session, novel_list), get_free_sort_end_list(session, novel_list))
         await asyncio.gather(get_pl_sort_new_best_list(session, novel_list), get_pl_sort_latest_list(session, novel_list), get_pl_sort_end_list(session, novel_list))
-
 
 if __name__ == '__main__':
     start = time.time()
