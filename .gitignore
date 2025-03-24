@@ -155,3 +155,5 @@ Munpia_novel_info.json
 *.json
 *.db
 *.json
+*.json
+/.idea
