@@ -62,6 +62,9 @@ async def get_pl_sort_new_best_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -76,8 +79,8 @@ async def get_pl_sort_new_best_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
@@ -115,6 +118,9 @@ async def get_pl_sort_latest_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -129,8 +135,8 @@ async def get_pl_sort_latest_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
@@ -165,6 +171,9 @@ async def get_pl_sort_end_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -179,8 +188,8 @@ async def get_pl_sort_end_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
@@ -217,6 +226,9 @@ async def get_free_sort_author_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -231,8 +243,8 @@ async def get_free_sort_author_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
@@ -267,6 +279,9 @@ async def get_free_sort_regular_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -281,8 +296,8 @@ async def get_free_sort_regular_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
@@ -318,6 +333,9 @@ async def get_free_sort_free_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -332,8 +350,8 @@ async def get_free_sort_free_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
@@ -368,6 +386,9 @@ async def get_free_sort_end_list(session, novel_list):
                             break
                         else:
                             for i in page:
+                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
+                                registdate = i['registDate'] if i['registDate'] != '-' else None
+
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
                                                             title=i['title'],
@@ -382,8 +403,8 @@ async def get_free_sort_end_list(session, novel_list):
                                                             newstatus=i['isNew'],
                                                             finishstatus=i['isFinish'],
                                                             agegrade=i['isAdult'],
-                                                            registdate=i['registDate'],
-                                                            updatedate=i['updateDate'],
+                                                            registdate=registdate,
+                                                            updatedate=updatedate,
                                                             sort_option=i['nvNgCode'])
                                 novel_list.append(novel_info)
                             break
