@@ -3,6 +3,7 @@ import pprint
 import aiohttp
 import random
 from DB_processing import store_db
+from DB_connect import store_db_munpia_pg_copy
 from info import set_novel_info
 from store import store_info
 import time
@@ -460,4 +461,6 @@ if __name__ == '__main__':
     result = datetime.timedelta(seconds=sec)
     pprint.pprint(f"크롤러 동작 시간 : {result}")
     store_db()
+    store_db_munpia_pg_copy("munpia_novel_info.json")
+
 
