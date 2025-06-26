@@ -1,5 +1,4 @@
 from random import choice
-
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, BigInteger, Text, DateTime, String, Boolean, and_, Integer, text
 from sqlalchemy.orm import declarative_base, sessionmaker
@@ -1011,7 +1010,7 @@ def store_db_munpia_pg_copy(json_path='munpia_novel_info.json'):
                         agegrade BOOLEAN,
                         registdate TIMESTAMP WITH TIME ZONE,
                         updatedate TIMESTAMP WITH TIME ZONE,
-                        crawltime TIMESTAMP WITH TIME ZONE
+                        crawltime TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                     );
                 """
                 session.execute(text(create_temp_table_sql))
