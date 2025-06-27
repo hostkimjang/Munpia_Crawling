@@ -461,6 +461,6 @@ if __name__ == '__main__':
     result = datetime.timedelta(seconds=sec)
     pprint.pprint(f"크롤러 동작 시간 : {result}")
     store_db()
-    store_db_munpia_pg_copy("munpia_novel_info.json")
+    store_db_munpia_pg_copy("Munpia_novel_info.json")
 
 
