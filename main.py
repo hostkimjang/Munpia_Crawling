@@ -24,14 +24,14 @@ def convert_timestamps(nvTimeReg, nvTimeUpdate):
     
     if nvTimeReg and nvTimeReg != 0:
         try:
-            registdate = datetime.datetime.fromtimestamp(nvTimeReg).strftime("%Y-%m-%d %H:%M")
+            registdate = datetime.datetime.fromtimestamp(nvTimeReg).strftime("%Y-%m-%d %H:%M:%S")
         except (ValueError, OSError):
             registdate = None
     
     if nvTimeUpdate and nvTimeUpdate != 0:
         try:
             actual_timestamp = NVTIME_CONSTANT - nvTimeUpdate
-            updatedate = datetime.datetime.fromtimestamp(actual_timestamp).strftime("%Y-%m-%d %H:%M")
+            updatedate = datetime.datetime.fromtimestamp(actual_timestamp).strftime("%Y-%m-%d %H:%M:%S")
         except (ValueError, OSError):
             updatedate = None
     
