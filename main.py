@@ -14,6 +14,29 @@ headers = {
     "X-Requested-With": "XMLHttpRequest"
 }
 
+# nvTimeUpdate 변환을 위한 상수
+NVTIME_CONSTANT = 9999990400
+
+def convert_timestamps(nvTimeReg, nvTimeUpdate):
+    """nvTimeReg와 nvTimeUpdate를 실제 날짜시간으로 변환"""
+    registdate = None
+    updatedate = None
+    
+    if nvTimeReg and nvTimeReg != 0:
+        try:
+            registdate = datetime.datetime.fromtimestamp(nvTimeReg).strftime("%Y-%m-%d %H:%M")
+        except (ValueError, OSError):
+            registdate = None
+    
+    if nvTimeUpdate and nvTimeUpdate != 0:
+        try:
+            actual_timestamp = NVTIME_CONSTANT - nvTimeUpdate
+            updatedate = datetime.datetime.fromtimestamp(actual_timestamp).strftime("%Y-%m-%d %H:%M")
+        except (ValueError, OSError):
+            updatedate = None
+    
+    return registdate, updatedate
+
 #url = f"https://mm.munpia.com/free/getList?page=1&rows=30&tab=regular&subtab=&selectbox="
 #url = f"https://mm.munpia.com/main/v42/slide/free/tab/regular"
 
@@ -63,8 +86,9 @@ async def get_pl_sort_new_best_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
@@ -119,8 +143,9 @@ async def get_pl_sort_latest_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
@@ -172,8 +197,9 @@ async def get_pl_sort_end_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
@@ -227,8 +253,9 @@ async def get_free_sort_author_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
@@ -280,8 +307,9 @@ async def get_free_sort_regular_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
@@ -334,8 +362,9 @@ async def get_free_sort_free_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
@@ -387,8 +416,9 @@ async def get_free_sort_end_list(session, novel_list):
                             break
                         else:
                             for i in page:
-                                updatedate = i['updateDate'] if i['updateDate'] != '-' else None
-                                registdate = i['registDate'] if i['registDate'] != '-' else None
+                                nvTimeReg = i.get('nvTimeReg', 0)
+                                nvTimeUpdate = i.get('nvTimeUpdate', 0)
+                                registdate, updatedate = convert_timestamps(nvTimeReg, nvTimeUpdate)
 
                                 novel_info = set_novel_info(platform="Munpia",
                                                             id=i['nvSrl'],
